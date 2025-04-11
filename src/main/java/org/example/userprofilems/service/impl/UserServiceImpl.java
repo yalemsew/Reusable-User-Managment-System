@@ -20,18 +20,20 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     @Override
-    public Optional<UserResponseDto> createUser(UserRequestDto userRequestDto) {
+    public UserResponseDto createUser(UserRequestDto userRequestDto) {
 
         Optional<User> optionalUser = userRepository.findByUsername(userRequestDto.userName());
         if(optionalUser.isPresent()){
             throw new RuntimeException("User already exists");
         }
-        return Optional.empty();
+        User user = userMapper.userRequestDtoToUser(userRequestDto);
+        User savedUser = userRepository.save(user);
+        return userMapper.userToUserResponseDto(savedUser);
     }
 
     @Override
-    public Optional<UserResponseDto> updateUser(String username, UserRequestDto userRequestDto) {
-        return Optional.empty();
+    public UserResponseDto updateUser(String username, UserRequestDto userRequestDto) {
+        return null;
     }
 
     @Override
@@ -40,12 +42,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserResponseDto> findUserByUsername(String username) {
-        return Optional.empty();
+    public UserResponseDto findUserByUsername(String username) {
+        return null;
     }
 
     @Override
-    public List<UserResponseDto> findAllUsers() {
-        return List.of();
+    public UserResponseDto findAllUsers() {
+        return null;
     }
+
+
 }
