@@ -26,6 +26,8 @@ public class Profile {
     private String phoneNumber;
     @Column(length = 1000)
     private String bio;
+    @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY)
+    private User user;
 
     public Profile(String firstName, String lastName, LocalDate dateOfBirth, String email, String phoneNumber, String bio) {
         this.firstName = firstName;
