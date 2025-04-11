@@ -14,3 +14,4 @@ public interface UserService {
     Optional<UserResponseDto> findUserByUsername(String username);
     List<UserResponseDto> findAllUsers();
 }
+//annotation can only be done at the implemented class
