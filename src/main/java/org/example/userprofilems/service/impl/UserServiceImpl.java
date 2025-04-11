@@ -25,7 +25,6 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = userRepository.findByUsername(userRequestDto.userName());
         if(optionalUser.isPresent()){
             throw new RuntimeException("User already exists");
-
         }
         return Optional.empty();
     }
