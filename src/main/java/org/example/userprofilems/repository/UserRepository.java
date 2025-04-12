@@ -9,3 +9,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
     void deleteByUsername(String username);
 }
+
+//jpa query method for update, it should be transactional
