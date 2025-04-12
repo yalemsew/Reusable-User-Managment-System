@@ -9,17 +9,16 @@ import org.mapstruct.MappingConstants;
 
 import java.util.List;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = ProfileMapper.class)
 public interface UserMapper {
    @Mapping(source = "profileRequestDto", target="profile")
-    User userRequestDtoToUser(UserRequestDto userRequestDto);
+   @Mapping(source = "userName", target = "username")
+   User userRequestDtoToUser(UserRequestDto userRequestDto);
 
    @Mapping(source = "profile", target="profileResponseDto")
     UserResponseDto userToUserResponseDto(User user);
 
     @Mapping(source = "profile", target="profileResponseDto")
     List<UserResponseDto> userToUserResponseDto(List<User> users);
-
-
 
 }

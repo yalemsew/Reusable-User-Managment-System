@@ -1,6 +1,7 @@
 package org.example.userprofilems.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -8,7 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "profiles")
 @NoArgsConstructor
-
+@Data
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
