@@ -12,6 +12,6 @@ public interface UserService {
     UserResponseDto updateUser(String username, UserRequestDto userRequestDto);
     void deleteUserByUsername(String username);
     UserResponseDto findUserByUsername(String username);
-    UserResponseDto findAllUsers();
+    List<UserResponseDto> findAllUsers();
 }
 //annotation can only be done at the implemented class

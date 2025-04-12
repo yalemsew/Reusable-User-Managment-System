@@ -27,5 +27,6 @@ public class UserController {
         System.out.println("hello");
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
     }
+    public List<>
 
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.userprofilems.domain.User;
 import org.example.userprofilems.dto.requestDto.UserRequestDto;
 import org.example.userprofilems.dto.responseDto.UserResponseDto;
+import org.example.userprofilems.exception.user.UserNotFoundException;
 import org.example.userprofilems.mapper.UserMapper;
 import org.example.userprofilems.repository.UserRepository;
 import org.example.userprofilems.service.UserService;
@@ -33,7 +34,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto updateUser(String username, UserRequestDto userRequestDto) {
-        return null;
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if(optionalUser.isPresent()){
+            //do update
+            User existingUser = optionalUser.get();
+            User mapppedUser = userMapper.userRequestDtoToUser(userRequestDto);
+            mapppedUser.setId(existingUser.getId());
+            User updatedUser = userRepository.save(mapppedUser);
+            return userMapper.userToUserResponseDto(updatedUser);
+
+        }
+        throw new UserNotFoundException(username+ " not found");
     }
 
     @Override
@@ -47,8 +58,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto findAllUsers() {
-        return null;
+    public List<UserResponseDto> findAllUsers() {
+       List<User> users = userRepository.findAll();
+       return userMapper.userToUserResponseDto(users);
     }
 
 
