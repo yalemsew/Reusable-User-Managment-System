@@ -2,6 +2,7 @@ package org.example.userprofilems.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.userprofilems.exception.user.DuplicateUserException;
+import org.example.userprofilems.exception.user.UserNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,5 +51,15 @@ public class GlobalExceptionHandler {
                 Instant.now()
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ApiError> handleUserNotFoundException(UserNotFoundException e, HttpServletRequest request){
+        ApiError apiError = new ApiError(
+                e.getMessage(),
+                request.getRequestURI(),
+                HttpStatus.NOT_FOUND.value(),
+                Instant.now()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
     }
 }

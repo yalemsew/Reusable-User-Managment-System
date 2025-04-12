@@ -59,7 +59,10 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = userRepository.findByUsername(username);
         if(optionalUser.isPresent()){
             userRepository.deleteByUsername(username);
+        }else{
+            throw new UserNotFoundException(username+ " not found");
         }
+
     }
 
     @Override
